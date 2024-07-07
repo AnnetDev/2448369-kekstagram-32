@@ -1,37 +1,4 @@
-function getRandomInteger (min, max) {
-  const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
-  const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
-  const result = Math.random() * (upper - lower + 1) + lower;
-
-  return Math.floor(result);
-}
-
-// function getRandomInteger1(min, max) {
-//   const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
-//   const upper = max === Infinity ? Number.MAX_SAFE_INTEGER : Math.floor(Math.max(Math.abs(min), Math.abs(max)));
-//   const result = Math.random() * (upper - lower + 1) + lower;
-
-//   return Math.floor(result);
-// }
-
-function createRandomIdFromRangeGenerator (min, max) {
-  const previousValues = [];
-
-  return function () {
-    let currentValue = getRandomInteger(min, max);
-    if (previousValues.length >= (max - min + 1)) {
-      // console.error('Перебраны все числа из диапазона от ' + min + ' до ' + max);
-      return null;
-    }
-    while (previousValues.includes(currentValue)) {
-      currentValue = getRandomInteger(min, max);
-    }
-    previousValues.push(currentValue);
-    return currentValue;
-  };
-}
-
-const messages = [
+const MESSAGES = [
   'Всё отлично!',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
   'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
@@ -49,43 +16,7 @@ const NAMES = [
   'Пафнутий Блаблаблаев',
 ];
 
-
-const generateCommentId = createRandomIdFromRangeGenerator(1, 100000); //бесконечность?
-
-function getRandomComments(messages) {
-  const numberOfComments = getRandomInteger(1, 2); // случайное количество комментариев (1 или 2)
-  const comments = [];
-
-  while (comments.length < numberOfComments) {
-    const randomIndex = getRandomInteger(0, messages.length - 1);
-    const randomCommentText = messages[randomIndex];
-
-    if (!comments.includes(randomCommentText)) {
-      comments.push(randomCommentText);
-    }
-  }
-
-  return comments;
-}
-
-const randomComment = () => {
-  const authorID = getRandomInteger(1, 6);
-
-  return {
-    id: generateCommentId(),
-    avatar:  `img/avatar-${authorID}.svg`,
-    messages: getRandomComments(messages),
-    name: NAMES[authorID - 1]
-  };
-};
-
-// console.log(randomComment);
-
-const COMMENTS = Array.from({length: 30}, randomComment);
-// console.log(COMMENTS);
-
-//Каждый объект массива — описание фотографии, опубликованной пользователем.
-const captions = [
+const CAPTIONS = [
   'Наслаждаясь прекрасным днем.',
   'Отличные воспоминания!',
   'Время, проведенное с пользой.',
@@ -113,21 +44,105 @@ const captions = [
   'Эти моменты бесценны.'
 ];
 
-const generatePhotoID = createRandomIdFromRangeGenerator(1, 25);
+const PHOTO_COUNT = 25;
+const LIKES_MIN_COUNT = 15;
+const LIKES_MAX_COUNT = 200;
+const COMMENT_MIN_COUNT = 0;
+const COMMENT_MAX_COUNT = 30;
+const COMMENTS_ARRAY_LENGTH = 30;
+
+
+const getRandomInteger = (min, max) => {
+  const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
+  const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
+  const result = Math.random() * (upper - lower + 1) + lower;
+
+  return Math.floor(result);
+};
+
+// function getRandomInteger1(min, max) {
+//   const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
+//   const upper = max === Infinity ? Number.MAX_SAFE_INTEGER : Math.floor(Math.max(Math.abs(min), Math.abs(max)));
+//   const result = Math.random() * (upper - lower + 1) + lower;
+//   return Math.floor(result);
+// }
+
+const createRandomIdFromRangeGenerator = (min, max) => {
+  const previousValues = [];
+
+  return function () {
+    let currentValue = getRandomInteger(min, max);
+    if (previousValues.length >= (max - min + 1)) {
+      // console.error('Перебраны все числа из диапазона от ' + min + ' до ' + max);
+      return null;
+    }
+    while (previousValues.includes(currentValue)) {
+      currentValue = getRandomInteger(min, max);
+    }
+    previousValues.push(currentValue);
+    return currentValue;
+  };
+};
+
+const createIdGenerator = () => {
+  let lastGeneratedId = 0;
+
+  return function () {
+    lastGeneratedId += 1;
+    return lastGeneratedId;
+  };
+};
+
+const generateCommentId = createIdGenerator ();
+
+
+const getRandomComments = () => {
+  const numberOfComments = getRandomInteger(1, 2); // случайное количество комментариев (1 или 2)
+  const comments = [];
+
+  while (comments.length < numberOfComments) {
+    const randomIndex = getRandomInteger(0, MESSAGES.length - 1);
+    const randomCommentText = MESSAGES[randomIndex];
+
+    if (!comments.includes(randomCommentText)) {
+      comments.push(randomCommentText);
+    }
+  }
+
+  return comments;
+};
+
+const randomComment = () => {
+  const authorID = getRandomInteger(1, 6);
+
+  return {
+    id: generateCommentId(),
+    avatar: `img/avatar-${authorID}.svg`,
+    message: getRandomComments(),
+    name: NAMES[authorID - 1]
+  };
+};
+
+// console.log(randomComment);
+
+const commentsArray = Array.from({length: COMMENTS_ARRAY_LENGTH}, randomComment);
+// console.log(commentsArray);
+
+const generatePhotoID = createRandomIdFromRangeGenerator(1, PHOTO_COUNT);
 
 const photoDescription = () => {
   const id = generatePhotoID();
-  const photoComments = Array.from({ length: getRandomInteger(0, 30) }, () => COMMENTS[getRandomInteger(0, COMMENTS.length - 1)]);
+  const photoComments = Array.from({ length: getRandomInteger(COMMENT_MIN_COUNT, COMMENT_MAX_COUNT) }, () => commentsArray[getRandomInteger(0, commentsArray.length - 1)]);
   return {
     id,
-    url: `photos/${id}.svg`,
-    description: captions[getRandomInteger(0, captions.length - 1)],
-    likes: getRandomInteger(15, 200),
+    url: `photos/${id}.jpg`,
+    description: CAPTIONS[getRandomInteger(0, CAPTIONS.length - 1)],
+    likes: getRandomInteger(LIKES_MIN_COUNT, LIKES_MAX_COUNT),
     comments: photoComments
   };
 };
 
 // console.log(photoDescription);
 
-const photoDescriptions = Array.from({length: 25}, photoDescription);
+const photoDescriptions = Array.from({length: PHOTO_COUNT}, photoDescription);
 console.log(photoDescriptions);
