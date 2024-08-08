@@ -7,6 +7,7 @@ const publishButtonText = {
   IDLE: 'Опубликовать',
   SENDING: 'Публикую...'
 };
+
 const uploadImg = document.querySelector('.img-upload__input[type=file]');
 const preview = document.querySelector('.img-upload__preview img');
 const uploadOverlay = document.querySelector('.img-upload__overlay');
@@ -64,6 +65,7 @@ function resetForm() {
   updatePublishButton();
 }
 
+
 uploadImgCancel.addEventListener('click', closeUploadInput);
 
 // -> Валидация комментов
@@ -73,6 +75,13 @@ const pristine = new Pristine(form, {
   errorTextParent: 'img-upload__field-wrapper',
   errorTextClass: 'img-upload__field-wrapper__error',
 });
+
+// Добавляем функцию для очистки сообщений об ошибках
+function clearErrors() {
+  pristine.reset();
+  const errorElements = document.querySelectorAll('.pristine-error');
+  errorElements.forEach((element) => element.remove());
+}
 
 function validateComment(value) {
   return value.length <= 140;
@@ -87,7 +96,7 @@ function validateHashtags(value) {
     return true; // Хэштеги необязательны
   }
 
-  const hashtags = value.trim().split(/\s+/); //.split(/\s+/):Разделяет строку на массив
+  const hashtags = value.trim().split(/\s+/); //.split(/\s+/): Разделяет строку на массив
 
   if (hashtags.length > 5) {
     return false; // нельзя указать больше пяти хэштегов
@@ -134,8 +143,6 @@ function getHashtagErrorMessage(value) {
     }
     uniqueHashtags.add(hashtag.toLowerCase());
   }
-
-  // return 'Некорректный хэштег';
 }
 
 pristine.addValidator(hashtagField, validateHashtags, getHashtagErrorMessage);
@@ -164,14 +171,14 @@ const showSuccessMessage = () => {
     document.removeEventListener('click', onOutsideClick);
   };
 
-  function onEscKeyDown (evt) {
+  function onEscKeyDown(evt) {
     if (isEscapeKey(evt)) {
       evt.preventDefault();
       removeMessage();
     }
   }
 
-  function onOutsideClick (evt) {
+  function onOutsideClick(evt) {
     if (!evt.target.closest('.success__inner')) {
       removeMessage();
     }
@@ -196,14 +203,14 @@ const showErrorMessage = () => {
     document.removeEventListener('click', onOutsideClick);
   };
 
-  function onEscKeyDown (evt) {
+  function onEscKeyDown(evt) {
     if (isEscapeKey(evt)) {
       evt.preventDefault();
       removeMessage();
     }
   }
 
-  function onOutsideClick (evt) {
+  function onOutsideClick(evt) {
     if (!evt.target.closest('.error__inner')) {
       removeMessage();
     }
@@ -214,9 +221,8 @@ const showErrorMessage = () => {
   document.addEventListener('click', onOutsideClick);
 };
 
-
 const setFormSubmit = (onSuccess) => {
-  form.addEventListener('submit', async (evt) => { // async & await добавила после лайва
+  form.addEventListener('submit', async (evt) => {
     evt.preventDefault();
     const isValid = pristine.validate();
     if (isValid) {
@@ -233,7 +239,10 @@ const setFormSubmit = (onSuccess) => {
     }
   });
 };
-// Реализуйте логику проверки так, чтобы, как минимум, она срабатывала при попытке отправить форму и не давала этого сделать, если форма заполнена не по правилам.
+
+// Реализуйте логику проверки так, чтобы она срабатывала при попытке отправить форму
+// и не давала этого сделать, если форма заполнена не по правилам.
+
 function updatePublishButton() {
   const isValid = pristine.validate();
   if (isValid) {
@@ -243,7 +252,15 @@ function updatePublishButton() {
   }
 }
 
-hashtagField.addEventListener('input', updatePublishButton);
-commentField.addEventListener('input', updatePublishButton);
+// Подключаем очистку ошибок к событиям 'input'
+hashtagField.addEventListener('input', () => {
+  clearErrors();
+  updatePublishButton();
+});
+
+commentField.addEventListener('input', () => {
+  clearErrors();
+  updatePublishButton();
+});
 
 export { setFormSubmit, openUploadInput, closeUploadInput };

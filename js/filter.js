@@ -35,8 +35,10 @@ const filterFunctions = {
 
 const onFilterChange = (evt) => {
   if (evt.target.classList.contains('img-filters__button')) {
-    document.querySelector('.img-filters__button--active').classList.remove('img-filters__button--active');
-    evt.target.classList.add('img-filters__button--active');
+    if (evt.target.classList.contains('img-filters__button')) {
+      document.querySelector('.img-filters__button--active').classList.remove('img-filters__button--active');
+      evt.target.classList.add('img-filters__button--active');
+    }
 
     removeThumbnails();
 

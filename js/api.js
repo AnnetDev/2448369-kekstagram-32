@@ -1,24 +1,43 @@
 const BASE_URL = 'https://32.javascript.htmlacademy.pro/kekstagram';
+
 const Route = {
   GET_DATA: '/data',
   SEND_DATA: '/',
 };
+
 const Method = {
   GET: 'GET',
   POST: 'POST',
 };
 
-const load = (route, method = Method.GET, body = null) =>
-  fetch(`${BASE_URL}${route}`, { method, body })
+// Основная функция для выполнения запросов
+const load = (route, method = Method.GET, body = null) => new Promise((resolve, reject) => {
+  fetch(`${BASE_URL}${route}`, {
+    method,
+    body,
+  })
     .then((response) => {
       if (!response.ok) {
-        throw new Error(`Произошла ошибка ${response.status}: ${response.statusText}`);
+        return reject(new Error(`Произошла ошибка ${response.status}: ${response.statusText}`));
       }
       return response.json();
-    });
+    })
+    .then((data) => resolve(data))
+    .catch((error) => reject(error));
+});
 
-const getData = () => load(Route.GET_DATA); //нужен ли промис
+// Функция для получения данных
+const getData = () => new Promise((resolve, reject) => {
+  load(Route.GET_DATA)
+    .then((data) => resolve(data))
+    .catch((error) => reject(error));
+});
 
-const sendData = (body) => load(Route.SEND_DATA, Method.POST, body); //нужен ли промис
+// Функция для отправки данных
+const sendData = (body) => new Promise((resolve, reject) => {
+  load(Route.SEND_DATA, Method.POST, body)
+    .then((data) => resolve(data))
+    .catch((error) => reject(error));
+});
 
 export { getData, sendData };
