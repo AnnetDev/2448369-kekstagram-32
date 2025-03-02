@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 
-export default defineConfig({
-  base: '/2448369-kekstagram-32/',
+export default defineConfig(({ command }) => ({
+  base: command === 'build' ? '/2448369-kekstagram-32/' : './',
   build: {
     rollupOptions: {
       input: 'index.html',
@@ -10,7 +10,7 @@ export default defineConfig({
       }
     }
   }
-});
+}));
 
 // import { defineConfig } from 'vite';
 
