@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  base: './', // относительный путь для корректной работы на GitHub Pages
+  base: '/2448369-kekstagram-32/', // Это путь для GitHub Pages
 });
