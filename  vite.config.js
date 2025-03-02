@@ -1,5 +1,5 @@
-import { defineConfig } from 'vite';
+// import { defineConfig } from 'vite';
 
-export default defineConfig({
-  base: '/2448369-kekstagram-32/', // Это путь для GitHub Pages
-});
+// export default defineConfig({
+//   base: '/2448369-kekstagram-32/', // Это путь для GitHub Pages
+// });
