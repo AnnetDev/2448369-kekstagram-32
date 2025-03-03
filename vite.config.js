@@ -2,12 +2,12 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
   build: {
-    target: 'esnext', // Устанавливаем таргет для вывода в ESM
+    target: 'esnext',
     rollupOptions: {
       output: {
-        format: 'esm', // Устанавливаем формат ESM
+        format: 'esm',
       },
     },
   },
-  base: process.env.NODE_ENV === 'production' ? '/2448369-kekstagram-32/' : '/',
+  base: '/2448369-kekstagram-32/', // Указываем правильную базовую директорию
 });
