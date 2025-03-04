@@ -5,8 +5,6 @@ import { setFormSubmit, closeUploadInput } from './form_utils.js';
 import { getData } from './api.js';
 import { showDataError } from './util.js';
 import { initFilters } from './filter.js';
-import '../vendor/pristine/pristine.min.js';
-import '../vendor/nouislider/nouislider.js';
 
 
 getData()

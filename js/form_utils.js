@@ -1,9 +1,6 @@
 import { resetScale } from './scale';
 import { setEffect, resetSlider } from './effects';
 import { sendData } from './api.js';
-// import Pristine from '../vendor/pristine/pristine.min.js';
-import '../vendor/pristine/pristine.min.js';
-
 
 const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 const publishButtonText = {

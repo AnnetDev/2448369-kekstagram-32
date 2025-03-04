@@ -1,7 +1,7 @@
 import { renderThumbnails } from './thumbnailGenerator';
 import { removeThumbnails } from './gallery';
 import { debounce } from './util';
-//
+
 const RANDOM_PHOTOS_COUNT = 10;
 let currentPictures = [];
 

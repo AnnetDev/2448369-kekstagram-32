@@ -9,7 +9,7 @@ export default defineConfig({
   build: {
     outDir: './dist',
   },
-  base: '/2448369-kekstagram-32/',
+  base: './',
   // server: {
   //   port: 3000,
   // }
