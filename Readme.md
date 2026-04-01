@@ -61,5 +61,5 @@ This repository was created as part of the intensive online course «[JavaScript
 
 ---
 
-* Student: [Anna Baidikova](https://up.htmlacademy.ru/javascript/32/user/2448369).
-* Mentor: [Олег Глущенко](https://htmlacademy.ru/profile/id305355).
+* Student: [Anna Baidikova](https://www.linkedin.com/in/anna-baidikova/).
+* Mentor: [Oleg Gluschenko](https://htmlacademy.ru/profile/id305355).
