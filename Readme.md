@@ -1,51 +1,65 @@
-# Личный проект «Кекстаграм»
+# Kekstagram
 
-* Студент: [Anna Baidikova](https://up.htmlacademy.ru/javascript/32/user/2448369).
-* Наставник: [Олег Глущенко](https://htmlacademy.ru/profile/id305355).
+A photo-sharing web application where users can browse photos uploaded by others, apply filters and effects to their own photos, and publish them with hashtags and a caption.
 
----
+## Features
 
-_Не удаляйте и не изменяйте самовольно файлы и папки:_
-_`.editorconfig`, `.eslintrc`, `.gitattributes`, `.gitignore`, `package-lock.json`, `package.json`., `.github`_
+- **Photo gallery** — browse a grid of user-uploaded photos with like and comment counts
+- **Gallery filters** — sort photos by Default, Random, or Most Discussed
+- **Fullscreen view** — click any photo to open it in a fullscreen overlay with comments and likes
+- **Load more comments** — paginated comment loading in the fullscreen view
+- **Photo upload** — select a local image (JPG / PNG) to open the editing modal
+- **Scale controls** — zoom the preview in or out (25%–100%) before publishing
+- **Effects** — apply one of six visual filters to the image: Original, Chrome, Sepia, Marvin, Phobos, Heat
+- **Effect depth slider** — fine-tune filter intensity via a noUiSlider range input
+- **Hashtag validation** — real-time client-side validation with descriptive error messages
+- **Caption** — add a text description (up to 140 characters) with live character-count validation
+- **Publish / error feedback** — success and error modals after form submission
+- **Responsive layout** — adapted for desktop, tablet, and mobile screens
 
----
+## Stack
 
-[Как работать с Git на проекте](Contributing.md) | [Как работать над проектом](Workflow.md)
+| Layer | Technology |
+|---|---|
+| Markup | HTML5 |
+| Styles | CSS3 (custom, no framework) |
+| Logic | Vanilla JavaScript (ES2022, modules) |
+| Bundler | Vite 4 |
+| Linter | ESLint (htmlacademy config) |
+| Slider | noUiSlider |
+| Validation | Pristine.js |
+| Deploy | GitHub Pages (`gh-pages`) |
 
-### Памятка
+## Validation rules
 
-#### 1. Зарегистрируйтесь на Гитхабе
+**Hashtags** (field is optional):
+- Each hashtag must start with `#`
+- Only letters and digits after `#`, max 20 characters total
+- No more than 5 hashtags, separated by spaces
+- Duplicates are not allowed (case-insensitive)
 
-Если у вас ещё нет аккаунта на [github.com](https://github.com/join), скорее зарегистрируйтесь.
+**Caption**:
+- Maximum 140 characters
 
-#### 2. Создайте форк
+Validation runs on every keystroke. The Publish button is disabled while the form is invalid.
 
-Откройте репозиторий и нажмите кнопку «Fork» в правом верхнем углу. Репозиторий из Академии будет скопирован в ваш аккаунт.
+## Getting started
 
-<img width="769" alt="" src="https://user-images.githubusercontent.com/10909/35275222-1d624452-0050-11e8-8aca-06d2832724ce.png">
-
-Получится вот так:
-
-<img width="769" alt="" src="https://user-images.githubusercontent.com/10909/35275223-1d7cf9fa-0050-11e8-829b-98ac3c9a4f8b.png">
-
-#### 3. Клонируйте репозиторий на свой компьютер
-
-Будьте внимательны: нужно клонировать свой репозиторий (форк), а не репозиторий Академии. Также обратите внимание, что клонировать репозиторий нужно через SSH, а не через HTTPS. Нажмите зелёную кнопку в правой части экрана, чтобы скопировать SSH-адрес вашего репозитория:
-
-<img width="769" alt="" src="https://user-images.githubusercontent.com/10909/35275224-1d97a7dc-0050-11e8-89f9-41c9a7b2ae9c.png">
-
-Клонировать репозиторий можно так:
-
+```bash
+npm install      # install dependencies
+npm start        # dev server at localhost:3000
+npm run build    # production build → dist/
+npm run deploy   # build + publish to GitHub Pages
+npm run lint     # ESLint check
 ```
-git clone SSH-адрес_вашего_форка
-```
-
-Команда клонирует репозиторий на ваш компьютер и подготовит всё необходимое для старта работы.
-
-#### 4. Начинайте обучение!
 
 ---
 
 <a href="https://htmlacademy.ru/intensive/javascript"><img align="left" width="50" height="50" alt="HTML Academy" src="https://up.htmlacademy.ru/static/img/intensive/javascript/logo-for-github-2.png"></a>
 
-Репозиторий создан для обучения на интенсивном онлайн‑курсе «[JavaScript. Профессиональная разработка веб-интерфейсов](https://htmlacademy.ru/intensive/javascript)» от [HTML Academy](https://htmlacademy.ru).
+This repository was created as part of the intensive online course «[JavaScript. Professional Web Development](https://htmlacademy.ru/intensive/javascript)» by [HTML Academy](https://htmlacademy.ru).
+
+---
+
+* Student: [Anna Baidikova](https://up.htmlacademy.ru/javascript/32/user/2448369).
+* Mentor: [Олег Глущенко](https://htmlacademy.ru/profile/id305355).
