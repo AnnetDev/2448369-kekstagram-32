@@ -4,8 +4,8 @@ import { sendData } from './api.js';
 
 const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 const publishButtonText = {
-  IDLE: 'Опубликовать',
-  SENDING: 'Публикую...'
+  IDLE: 'Publish',
+  SENDING: 'Publishing...'
 };
 
 const uploadImg = document.querySelector('.img-upload__input[type=file]');
@@ -139,7 +139,7 @@ function getHashtagErrorMessage(value) {
   const hashtags = value.trim().split(/\s+/);
 
   if (hashtags.length > 5) {
-    return 'Нельзя указать больше пяти хэштегов';
+    return 'Cannot use more than five hashtags';
   }
 
   const hashtagPattern = /^#[a-za-яё0-9]{1,19}$/i;
@@ -147,13 +147,13 @@ function getHashtagErrorMessage(value) {
 
   for (const hashtag of hashtags) {
     if (hashtag.length > 20) {
-      return 'Максимум 20 символов';
+      return 'Maximum 20 characters';
     }
     if (!hashtagPattern.test(hashtag)) {
-      return 'Хэштег должен начинаться с # и содержать только буквы и цифры';
+      return 'Hashtag must start with # and contain only letters and digits';
     }
     if (uniqueHashtags.has(hashtag.toLowerCase())) {
-      return 'Один и тот же хэштег не может быть использован дважды';
+      return 'The same hashtag cannot be used twice';
     }
     uniqueHashtags.add(hashtag.toLowerCase());
   }

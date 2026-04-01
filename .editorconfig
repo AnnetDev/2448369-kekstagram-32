@@ -1,12 +1,12 @@
-# Файл с настройками для редактора.
+# Editor configuration file.
 #
-# Если вы разрабатываете в редакторе WebStorm, BBEdit, Coda или SourceLair
-# этот файл уже поддерживается и не нужно производить никаких дополнительных
-# действий.
+# If you are developing in WebStorm, BBEdit, Coda or SourceLair
+# this file is already supported and no additional setup
+# is required.
 #
-# Если вы ведёте разработку в другом редакторе, зайдите
-# на http://editorconfig.org и в разделе «Download a Plugin»
-# скачайте дополнение для вашего редактора.
+# If you are using a different editor, visit
+# http://editorconfig.org and under «Download a Plugin»
+# download the plugin for your editor.
 
 
 root = true
